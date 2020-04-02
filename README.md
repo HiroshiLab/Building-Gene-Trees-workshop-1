@@ -209,7 +209,7 @@ RAxML is a tree building software that uses maximum likelihood
 
     b.  use python script to make command file
     
-        python 1a_WriteRAxMLCommands_bootstr_outgroup.py alignment_files.txt
+        python 1_WriteRAxMLCommands_bootstr.py alignment_files.txt
 
     c.	run command for mac
     
