@@ -125,7 +125,7 @@ This workshop aims for you to be able to run a gene tree analysis on your deskto
    
       a.	for Athaliana:
       
-          ncbi-blast-2.10.0+/bin/blastp -db Athaliana_TAIR10_pep_20101214.fa -query ADH_Athaliana.fa -out ADH_Athaliana_vs_Athaliana_BLresults.txt
+          ncbi-blast-2.10.0+/bin/blastp -db Athaliana_TAIR10_pep_20101214.fa -query Athaliana_ADH.txt.fa -out ADH_Athaliana_vs_Athaliana_BLresults.txt
           
       b.  look at results:
       
@@ -133,7 +133,7 @@ This workshop aims for you to be able to run a gene tree analysis on your deskto
           
       c.	try a different format:
       
-          ncbi-blast-2.10.0+/bin/blastp -outfmt 6 -evalue 0.001 -db Athaliana_TAIR10_pep_20101214.fa -query ADH_Athaliana.fa -out ADH_Athaliana_vs_Athaliana_BLresults2.txt
+          ncbi-blast-2.10.0+/bin/blastp -outfmt 6 -evalue 0.001 -db Athaliana_TAIR10_pep_20101214.fa -query Athaliana_ADH.txt.fa -out ADH_Athaliana_vs_Athaliana_BLresults2.txt
 
       d.	get blasts for other genomes:
       
@@ -160,9 +160,11 @@ This workshop aims for you to be able to run a gene tree analysis on your deskto
           
       b.	get protein sequence for gene list
       
-          python ../scripts/FastaManager.py -f getseq2 -fasta Streptochaeta_maker_max_proteins_V1.fasta -name Streptochaeta_ADH.txt 
+          python Building-Gene-Trees-workshop-1/FastaManager.py -f getseq2 -fasta Acomosus_321_v3.protein_primaryTranscriptOnly.fa -name Acomosus_ADH.txt 
           
-      c.	concatenate all of these sequences into one fasta file
+      c.  do the same for the rest of the BLAST outputs
+      
+      d.	concatenate all of these sequences into one fasta file
       
           cat *_ADH.txt.fa > all_ADH.fa
           
