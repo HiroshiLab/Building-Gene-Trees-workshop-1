@@ -71,11 +71,15 @@ This workshop aims for you to be able to run a gene tree analysis on your deskto
          
    click clone or download, then download zip to workshop1 folder
    
-  5. Dendroscope: for visualizing trees
+  5. Dendroscope: for visualizing trees.
+  
+  Download and install on your computer.
   
          http://dendroscope.org/
          
   6. Download files from this Github repository to workshop1 folder
+  
+  Zipped fasta files (.fa.gz) can also be downloaded from NCBI or Phytozome.
    
  ## Part 2: Basic Unix and Running BLAST from command line
  
@@ -89,61 +93,92 @@ This workshop aims for you to be able to run a gene tree analysis on your deskto
      
           cd /Users/Beth/Desktop/post_doc/workshop1/
           
+       if you need to go back to the previous directory do:
+       
+          cd ../
+          
+       list contents of the folder you are in:
+       
+          ls
+          
+       Workshop 1 should contain ~10 files now.
+          
   2. Untar and unzip BLAST files
   
-     a. untar BLAST:
+     a. Untar BLAST for mac:
      
-          tar -xzf ncbi-blast-2.10.0+-x64-linux.tar.gz
+          tar -xzf ncbi-blast-2.10.0+-x64-macosx.tar.gz
           
-     b. list BLAST directory
+       for windows:
+       
+          tar -xzf ncbi-blast-2.10.0+-x64-win64.tar.gz
+     
+     b. List BLAST directory
      
           ls ncbi-blast-2.10.0+/bin/
           
-     c. remove tar file
+     c. Remove tar file (change the name if you are using windows)
      
-          rm ncbi-blast-2.10.0+-x64-linux.tar.gz
+          rm ncbi-blast-2.10.0+-x64-macosx.tar.gz
           
-     d. what else is in this directory?
+     d. What else is in this directory?
      
           ls
           
-     e. unzip and check fasta files
+     e. Change to the github directory which should be within workshop1:
+     
+          cd Building-Gene-Trees-workshop-1-master/
+     
+     f. Unzip and check species fasta files
+     
+        unzip:
      
           gunzip *.gz
           
+        Now print the first 5 lines of each fasta file. If you get an error you likely have not correctly unzipped the files.
+          
           head *.fa*
           
-   3. Make BLAST databases 
+   3. Make BLAST databases (you should be in the directory where your fasta files are- Building-Gene-Trees-workshop-1)
    
-      a. for Streptochaeta:
+   Note: If you are using Windows you may have to change the fasta file names so they end in .fasta instead of .fa
    
-          ncbi-blast-2.10.0+/bin/makeblastdb -in Streptochaeta_maker_max_proteins_V1.fasta -dbtype prot
+   Additionally, windows programs end with .exe, so this must be added on to the program name. See below.
+   
+   
+   a. for Brachypodium mac:
+   
+           ncbi-blast-2.10.0+/bin/makeblastdb -in Bdistachyon_556_v3.2.protein_primaryTranscriptOnly.fa -dbtype prot
           
-      b. Now try the other fasta files
+   b. for Brachypodium windows:
+   
+           ncbi-blast-2.10.0+/bin/makeblastdb.exe -in Bdistachyon_556_v3.2.protein_primaryTranscriptOnly.fa -dbtype prot
+   
+   b. Now try the other fasta files
 
    4. BLAST ADH genes
    
-      a.	for Athaliana:
+   a.	for Athaliana:
       
           ncbi-blast-2.10.0+/bin/blastp -db Athaliana_TAIR10_pep_20101214.fa -query Athaliana_ADH.txt.fa -out ADH_Athaliana_vs_Athaliana_BLresults.txt
           
-      b.  look at results:
+   b.  look at results (hit the key "q" to get out of less):
       
           less ADH_Athaliana_vs_Athaliana_BLresults.txt
           
-      c.	try a different format:
+   c.	try a different format:
       
           ncbi-blast-2.10.0+/bin/blastp -outfmt 6 -evalue 0.001 -db Athaliana_TAIR10_pep_20101214.fa -query Athaliana_ADH.txt.fa -out ADH_Athaliana_vs_Athaliana_BLresults2.txt
 
-      d.	get blasts for other genomes:
+   d.	get blasts for other genomes:
       
-          ncbi-blast-2.10.0+/bin/blastp -outfmt 6 -evalue 0.001 -db Bdistachyon_556_v3.2.protein_primaryTranscriptOnly.fa -query ADH_Athaliana.fa -out ADH_Athaliana_vs_Bdistachyon_BLresults.txt
+          ncbi-blast-2.10.0+/bin/blastp -outfmt 6 -evalue 0.001 -db Acomosus_321_v3.protein_primaryTranscriptOnly.fa -query ADH_Athaliana.fa -out ADH_Athaliana_vs_Acomosus_BLresults.txt
           
-      e.	change file name, get rid of first Athaliana blast and replace with second:
+   e.	change file name, get rid of first Athaliana blast and replace with second (mv overwites the first results and replaces it with the second results):
 
           mv ADH_Athaliana_vs_Athaliana_BLresults2.txt ADH_Athaliana_vs_Athaliana_BLresults.txt
           
-      f.	Notes: 
+   f.	Notes: 
       
       output format 6 is ‘tabular’: 
       
@@ -160,7 +195,7 @@ This workshop aims for you to be able to run a gene tree analysis on your deskto
           
       b.	get protein sequence for gene list
       
-          python Building-Gene-Trees-workshop-1/FastaManager.py -f getseq2 -fasta Acomosus_321_v3.protein_primaryTranscriptOnly.fa -name Acomosus_ADH.txt 
+          python Building-Gene-Trees-workshop-1-master/FastaManager.py -f getseq2 -fasta Acomosus_321_v3.protein_primaryTranscriptOnly.fa -name Acomosus_ADH.txt 
           
       c.  do the same for the rest of the BLAST outputs
       
@@ -177,11 +212,15 @@ This workshop aims for you to be able to run a gene tree analysis on your deskto
   
   Windows user should follow part 1-4b to get MAFFT
   
-  1.  Do MAFFT alignment.
+  1.  Check if mafft is properly installed:
+  
+          which mafft
+  
+  2.  Do MAFFT alignment.
   
       a.	simplify your concatenated fasta file:
 
-          python ../scripts/FastaManager.py -f simplify -fasta all_ADH.fa
+          python Building-Gene-Trees-workshop-1-master/FastaManager.py -f simplify -fasta all_ADH.fa
 
           less all_ADH.fa.mod.fa
 
@@ -190,12 +229,22 @@ This workshop aims for you to be able to run a gene tree analysis on your deskto
           mafft --auto --anysymbol all_ADH.fa.mod.fa > all_ADH.fa.aln
 
           less all_ADH.fa.aln
+          
+  3. Move the alignment file to the workshop1 folder and return to this folder
+  
+          mv all_ADH.fa.aln ../
+          
+          cd ../
 
 ## Part 4: RAxML
 
 RAxML is a tree building software that uses maximum likelihood
 
-1.	For Mac only: compile
+1. Go to the RAxML folder
+
+        cd standard-RAxML-master
+
+2.	For Mac only: compile
 
         make -f Makefile.AVX2.PTHREADS.mac
 
@@ -203,27 +252,37 @@ RAxML is a tree building software that uses maximum likelihood
     
         raxmlHPC-PTHREADS-AVX2
 
-2.	run--Note: this part can take a long time, even for small trees-- up to 15 hours
+3.	run--Note: this part can take a long time, even for small trees-- can be multiple hours
 
-    a.  list alignment files into one file:
-
-        ls all_ADH.fa.aln > alignment_files.txt
-
-    b.  use python script to make command file
+    a.  Go back to the workshop-1 directory:
     
-        python 1_WriteRAxMLCommands_bootstr.py alignment_files.txt
+        cd ../
 
-    c.	run command for mac
+    b.  list alignment files into one file:
+
+        ls *.fa.aln > alignment_files.txt
+
+    c.  use python script to make command file
     
-        raxmlHPC-PTHREADS-AVX2 -T 4 -n all_ADH.fa.aln.RAxML.txt -f a -x 71994 -p 93537 -N 10 -m PROTGAMMAJTT -s all_ADH.fa.aln
+        python Building-Gene-Trees-workshop-1-master/1_WriteRAxMLCommands_bootstr.py alignment_files.txt
 
-    d.  run command for windows
+    d.  open the command file that was generated and copy line to run. Remember to press "q" to quit:
+    
+        less RAxMLCommands-Select.cc
+    
+    e.	run command for mac: 
+    
+    Note we have to add the folder name standard-RAxML-master/ to tell the command where the program is.
+    
+        standard-RAxML-master/raxmlHPC-PTHREADS-AVX2 -T 4 -n all_ADH.fa.aln.RAxML.txt -f a -x 71994 -p 93537 -N 10 -m PROTGAMMAJTT -s all_ADH.fa.aln
+
+    f.  run command for windows
     
         standard-RAxML-master/WindowsExecutables_v8.2.10/raxmlHPC-PTHREADS-AVX2.exe -T 4 -n all_ADH.fa.aln.RAxML -f a -x 71994 -p 93537 -N 100 -m PROTGAMMAJTT -# 100 -s all_ADH.fa.aln
     
-    e.  What do all the options mean?
+    g.  What do all the options mean?
 
-        -T= [number of computational cores (can look up in the about)], -n = [the output name], -f=[type of algorithm, a= [rapid Bootstrap analysis and search for best­scoring ML tree in one program run], -x= [rapidBootstrapRandomNumberSeed], -p= [parsimonyRandomSeed] ­#|­N = [numberOfRuns/ bootstraps], -m [model of nucleotide or amino acid substitution- PROTGAMMA: specified AA matrix + Optimization of substitution rates + GAMMA model of rate heterogeneity (alpha parameter will be estimated) JTT: specifies a ML estimate of base frequencies, JTT: gene1 = 1­500], -s= [the input (alignment) file]
+        -T= [number of computational cores (can look up in your computer's "about" or just remember that for most laptops 4 is good)], -n = [the output name], -f=[type of algorithm, a= [rapid Bootstrap analysis and search for best­scoring ML tree in one program run], -x= [rapidBootstrapRandomNumberSeed], -p= [parsimonyRandomSeed] ­#|­N = [numberOfRuns/ bootstraps (this is normally 100 but for a test run or for the workshop use 10)], -m [model of nucleotide or amino acid substitution- PROTGAMMA: specified AA matrix + Optimization of substitution rates + GAMMA model of rate heterogeneity (alpha parameter will be estimated) JTT: specifies a ML estimate of base frequencies, JTT: gene1 = 1­500], -s= [the input (alignment) file]
 
         100 bootstraps can take ~15 hours. For testing purposes, just do 10 bootstraps (about ~6 minutes per bootstrap)!
 
@@ -232,3 +291,15 @@ RAxML is a tree building software that uses maximum likelihood
          -o AT5G3493, At1g1571
          
 ## Part 5: Dendroscope
+
+1.  Go to applications or start on your computer to locate and open Dendroscope.
+
+2.  Open "RAxML_bestTree.." file to see overall topology.
+
+3.  Open "RAxML_bipartitions.." file to see best tree with bootstrap values.
+
+4.  Open "RAxML_bootstrap.." file to see all of the bootstrap trees that were constructed.
+
+5.  Try changing to different tree types
+
+6.  Select a specific branch (by placing the pointing finger on that branch) to root the tree with that leaf. The root button has a sideways red arrow at the base of a phylogeny.
