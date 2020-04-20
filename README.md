@@ -139,46 +139,41 @@ This workshop aims for you to be able to run a gene tree analysis on your deskto
           
           head *.fa*
           
-   3. Make BLAST databases (you should be in the directory where your fasta files are- Building-Gene-Trees-workshop-1)
+   3. Make BLAST databases (you should be in the directory where your fasta files are- Building-Gene-Trees-workshop-1)  Note: If you are using Windows you may have to change the fasta file names so they end in .fasta instead of .fa. Additionally, windows programs end with .exe, so this must be added on to the program name. See below.
    
-   Note: If you are using Windows you may have to change the fasta file names so they end in .fasta instead of .fa
+      a. for Brachypodium mac:
    
-   Additionally, windows programs end with .exe, so this must be added on to the program name. See below.
-   
-   
-   a. for Brachypodium mac:
-   
-           ncbi-blast-2.10.0+/bin/makeblastdb -in Bdistachyon_556_v3.2.protein_primaryTranscriptOnly.fa -dbtype prot
+          ncbi-blast-2.10.0+/bin/makeblastdb -in Bdistachyon_556_v3.2.protein_primaryTranscriptOnly.fa -dbtype prot
           
-   b. for Brachypodium windows:
+      b. for Brachypodium windows:
    
            ncbi-blast-2.10.0+/bin/makeblastdb.exe -in Bdistachyon_556_v3.2.protein_primaryTranscriptOnly.fa -dbtype prot
    
-   b. Now try the other fasta files
+      c. Now try the other fasta files
 
    4. BLAST ADH genes
    
-   a.	for Athaliana:
+      a.	for Athaliana:
       
           ncbi-blast-2.10.0+/bin/blastp -db Athaliana_TAIR10_pep_20101214.fa -query Athaliana_ADH.txt.fa -out ADH_Athaliana_vs_Athaliana_BLresults.txt
           
-   b.  look at results (hit the key "q" to get out of less):
+      b.  look at results (hit the key "q" to get out of less):
       
           less ADH_Athaliana_vs_Athaliana_BLresults.txt
           
-   c.	try a different format:
+      c.	try a different format:
       
           ncbi-blast-2.10.0+/bin/blastp -outfmt 6 -evalue 0.001 -db Athaliana_TAIR10_pep_20101214.fa -query Athaliana_ADH.txt.fa -out ADH_Athaliana_vs_Athaliana_BLresults2.txt
 
-   d.	get blasts for other genomes:
+      d.	get blasts for other genomes:
       
           ncbi-blast-2.10.0+/bin/blastp -outfmt 6 -evalue 0.001 -db Acomosus_321_v3.protein_primaryTranscriptOnly.fa -query ADH_Athaliana.fa -out ADH_Athaliana_vs_Acomosus_BLresults.txt
           
-   e.	change file name, get rid of first Athaliana blast and replace with second (mv overwites the first results and replaces it with the second results):
+      e.	change file name, get rid of first Athaliana blast and replace with second (mv overwites the first results and replaces it with the second results):
 
           mv ADH_Athaliana_vs_Athaliana_BLresults2.txt ADH_Athaliana_vs_Athaliana_BLresults.txt
           
-   f.	Notes: 
+      f.	Notes: 
       
       output format 6 is ‘tabular’: 
       
