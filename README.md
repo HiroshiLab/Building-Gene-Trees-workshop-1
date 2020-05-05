@@ -199,29 +199,29 @@ This workshop aims for you to be able to run a gene tree analysis on your deskto
       qseqid (Query Seq-id); sseqid (Subject Seq-id); pident (Percentage of identical matches); length (Alignment length); mismatch (Number of mismatches); gapopen (Number of gap openings); qstart (Start of alignment in query); qend (End of alignment in query); sstart (Start of alignment in subject); send (Start of alignment in subject); 
       evalue (Expect value- number of matches expected in database by chance- random background); bitscore (Bit score- natural log of the alignment score- estimates magnitude of search space needed to find this sequence by chance. A bit score of 30 means you need a sequence of length 2^30 to find the query sequence by chance)
 
-   5.	Get lists of BLAST matches and then get the protein sequences for those genes using awk
+  5. Get lists of BLAST matches and then get the protein sequences for those genes using awk
    
-      a.	get gene list from BLAST output
+     a.	get gene list from BLAST output
       
-      NOTE: ">" character indicates you are writing to a new file
+     NOTE: ">" character indicates you are writing to a new file
 
           awk '{ a[$2]++ } END { for (b in a) { print b } }' ADH_Athaliana_vs_Acomosus_BLresults.txt > Acomosus_ADH.txt
           
-      b.	get protein sequence for gene list
+     b.	get protein sequence for gene list
       
           python Building-Gene-Trees-workshop-1-master/FastaManager.py -f getseq2 -fasta Acomosus_321_v3.protein_primaryTranscriptOnly.fa -name Acomosus_ADH.txt 
           
-      NOTE: if your computer says "no python, use python3" then run the command starting with python3 instead of python
+     NOTE: if your computer says "no python, use python3" then run the command starting with python3 instead of python
           
-      c.  do the same for the rest of the BLAST outputs. Don't forget to change the inputs and outputs
+     c.  do the same for the rest of the BLAST outputs. Don't forget to change the inputs and outputs
       
            awk '{ a[$2]++ } END { for (b in a) { print b } }' blastresult_file > output1
            
            python Building-Gene-Trees-workshop-1-master/FastaManager.py -f getseq2 -fasta species_fasta_file -name output1
       
-      d.	concatenate all of these sequences into one fasta file
+     d.	concatenate all of these sequences into one fasta file
       
-      NOTE: * indicates "wild card", so anything ending with "_ADH.txt.fa"_ is concatenated into the new file
+     NOTE: * indicates "wild card", so anything ending with "_ADH.txt.fa"_ is concatenated into the new file
       
           cat *_ADH.txt.fa > all_ADH.fa
           
