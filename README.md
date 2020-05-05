@@ -192,12 +192,12 @@ This workshop aims for you to be able to run a gene tree analysis on your deskto
 
           mv ADH_Athaliana_vs_Athaliana_BLresults2.txt ADH_Athaliana_vs_Athaliana_BLresults.txt
           
-      f.	Notes: 
-      
+      f.	Notes on BLAST output: 
       output format 6 is ‘tabular’: 
       
-      qseqid (Query Seq-id); sseqid (Subject Seq-id); pident (Percentage of identical matches); length (Alignment length); mismatch (Number of mismatches); gapopen (Number of gap openings); qstart (Start of alignment in query); qend (End of alignment in query); sstart (Start of alignment in subject); send (Start of alignment in subject); 
-      evalue (Expect value- number of matches expected in database by chance- random background); bitscore (Bit score- natural log of the alignment score- estimates magnitude of search space needed to find this sequence by chance. A bit score of 30 means you need a sequence of length 2^30 to find the query sequence by chance)
+          qseqid (Query Seq-id); sseqid (Subject Seq-id); pident (Percentage of identical matches); length (Alignment length); mismatch (Number of mismatches); gapopen (Number of gap openings); qstart (Start of alignment in query); qend (End of alignment in query); sstart (Start of alignment in subject); send (Start of alignment in subject); 
+          
+          evalue (Expect value- number of matches expected in database by chance- random background); bitscore (Bit score- natural log of the alignment score- estimates magnitude of search space needed to find this sequence by chance. A bit score of 30 means you need a sequence of length 2^30 to find the query sequence by chance)
 
   5. Get lists of BLAST matches and then get the protein sequences for those genes using awk
    
