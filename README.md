@@ -72,6 +72,12 @@ This workshop aims for you to be able to run a gene tree analysis on your deskto
          
    click clone or download, then download zip to workshop1 folder
    
+   For mac, if you don't already have xcode, you will need to download and install in order to run RAxML.
+   
+   Xcode:
+   
+        https://developer.apple.com/xcode/
+   
   5. Dendroscope: for visualizing trees.
   
   Download and install on your computer.
