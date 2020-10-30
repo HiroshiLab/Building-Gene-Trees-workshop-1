@@ -223,6 +223,7 @@ class fasta_manager:
 	# @param coords [seq][L1,R1,L2,R2...]. If L > R, take reverse complement.
 	# @param seqid  Use 4th column of the coords file as sequence ID if available.
 	#               (1) or not (0, default)
+	# use get_stretch4 where you have Chr\tseq1,seq2\tname
 	def get_stretch4(self,fasta,coords,seqid):
 		
 		print ("Sequence to dict...")
@@ -343,13 +344,13 @@ class fasta_manager:
 		inp = open(fasta)
 		inl = inp.readlines()
 		idx = self.rmlb(inl[0])[1:]
-		seq = string.joinfields(inl[1:],"")
+		seq = string.join(inl[1:],"")
 
 		# get rid of line breaks, sometimes \n and \r\n are mixed.
 		if seq.find("\r\n") != -1:
-			seq = string.joinfields(seq.split("\r\n"),"")
+			seq = string.join(seq.split("\r\n"),"")
 		if seq.find("\n") != -1:
-			seq = string.joinfields(seq.split("\n"),"")
+			seq = string.join(seq.split("\n"),"")
 		print (len(seq))
 		
 		print ("Read coords and output seq...")
@@ -718,7 +719,7 @@ class fasta_manager:
 			            else:
 			                print ("No desc:",T)
 			    if N != "":
-			        oup.write("%s\t%s\t%s\t%s\n" % (C,L,R,N))
+			        oup.write("%s\t%s,%s\t%s\n" % (C,L,R,N))
 			
 			else:
 			    print(T, "line not used")
@@ -2502,7 +2503,7 @@ class fasta_manager:
 		print ("    get_stretch2 - get segment of a SINGLE sequence. Best for")
 		print ("       chromosome seq. REQUIRES: fasta, coords, OPT: isfile")
 		print ("    get_stretch3 - Take single seq fasta REQUIRES: fasta, coords")
-		print ("    get_stretch4 - Take multiple seq fasta, REQ: fasta,coords")
+		print ("    get_stretch4 - Take multiple seq fasta, REQ: fasta,coords") # use get_stretch4 where you have Chr\tseq1,seq2\tname
 		print ("    get_gc - calculate GC content")
 		print ("    gff_to_coord - convert GFF to coord file for get strech,")
 		print ("       NEED: gff")
